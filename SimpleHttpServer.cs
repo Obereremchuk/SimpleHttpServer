@@ -266,7 +266,7 @@ namespace Bend.Util {
             var curr_time = buf_data[3];
             var msg_time = buf_data[4];
             var location = buf_data[5];
-            var last_location = buf_data[6];
+            string last_location = MySqlHelper.EscapeString(buf_data[6]);
             var speed = buf_data[7];
             var product = buf_data[8];
             var type_alarm = buf_data[9];
@@ -274,6 +274,7 @@ namespace Bend.Util {
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             //Фиксируем в log in db
+
             string sql = string.Format("INSERT INTO btk.notification(unit_name, unit_id, notification, curr_time, msg_time, location, last_location, speed, product, type_alarm, Users_idUsers, Status) VALUES('" + unit_name + "','" + unit_id + "','" + notification + "','" + curr_time + "','" + msg_time + "','','"+ last_location + "','','" + product + "','" + type_alarm + "', '8', 'Відкрито')");
             // объект для выполнения SQL-запроса
             MySqlCommand command = new MySqlCommand(sql, conn);
